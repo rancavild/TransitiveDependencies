@@ -18,7 +18,7 @@ func TestDependencyFor(t *testing.T) {
 		{[]string{"F", "H"}, "E"},
 		{[]string{"H"}, "F"},
 	}
-	td := NewTransitiveDependency()
+	td := NewTransitiveDependency(Trans{})
         td.AddDirect("A", []string{"B", "C"})
         td.AddDirect("B", []string{"C", "E"})
         td.AddDirect("C", []string{"G"})
