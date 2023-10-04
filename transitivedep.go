@@ -13,9 +13,9 @@ type TransitiveDep interface {
 	getDependenciesFor(key string, dependency map[string][]string) map[string]struct{}
 }
 
-type Trans struct {}
+type TransDep struct {}
 
-func (t Trans) getDependenciesFor(key string, dependency map[string][]string) map[string]struct{} {
+func (t TransDep) getDependenciesFor(key string, dependency map[string][]string) map[string]struct{} {
 	result := make(map[string]struct{})
 	dependencies, ok := dependency[key]
 
@@ -36,11 +36,11 @@ type TransitiveDependency struct {
 	transitiveDep TransitiveDep
 }
 
-func (t TransitiveDependency) AddDirect(key string, dependencies []string) {
+func (t *TransitiveDependency) AddDirect(key string, dependencies []string) {
 	t.dependency[key] = dependencies
 }
 
-func (t TransitiveDependency) DependencyFor(key string) (result []string) {
+func (t *TransitiveDependency) DependencyFor(key string) (result []string) {
 	for d := range t.transitiveDep.getDependenciesFor(key, t.dependency) {
 		result = append(result, d)
 	}
@@ -49,5 +49,5 @@ func (t TransitiveDependency) DependencyFor(key string) (result []string) {
 }
 
 func NewTransitiveDependency(transitiveDep TransitiveDep) Dependency {
-	return TransitiveDependency{dependency: make(map[string][]string), transitiveDep: transitiveDep}
+	return &TransitiveDependency{dependency: make(map[string][]string), transitiveDep: transitiveDep}
 }
