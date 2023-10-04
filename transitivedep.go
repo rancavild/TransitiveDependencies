@@ -13,10 +13,6 @@ type TransitiveDependency struct {
 	dependency map[string][]string	
 }
 
-func (t TransitiveDependency) AddDirect(key string, dependencies []string) {
-	t.dependency[key] = dependencies
-}
-
 func (t TransitiveDependency) getDependencyFor(key string) map[string]struct{} {
 	result := make(map[string]struct{})
 	dependencies, ok := t.dependency[key]
@@ -31,6 +27,10 @@ func (t TransitiveDependency) getDependencyFor(key string) map[string]struct{} {
 		return result 
 	} 
 	return result
+}
+
+func (t TransitiveDependency) AddDirect(key string, dependencies []string) {
+	t.dependency[key] = dependencies
 }
 
 func (t TransitiveDependency) DependencyFor(key string) (result []string) {
