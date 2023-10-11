@@ -7,6 +7,7 @@ import (
 type Dependency interface {
 	AddDirect(key string, dependencies []string)
 	DependencyFor(key string) []string
+	GetDependency() map[string][]string
 }
 
 type TransitiveDep interface {
@@ -46,6 +47,10 @@ func (t *TransitiveDependency) DependencyFor(key string) (result []string) {
 	}
 	sort.Strings(result)
 	return
+}
+
+func (t *TransitiveDependency) GetDependency() map[string][]string {
+	return t.dependency
 }
 
 func NewTransitiveDependency(transitiveDep TransitiveDep) Dependency {
