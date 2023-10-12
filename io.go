@@ -17,11 +17,11 @@ type Output interface {
 }
 
 type FileIO struct {
-	filename  string
+	Filename  string
 }
 
 func (f *FileIO) ReadInput(td Dependency) {
-	input, err := os.Open(f.filename)
+	input, err := os.Open(f.Filename)
 
 	if err != nil {
 		log.Fatal("Cannot open the file!!!")
@@ -38,7 +38,7 @@ func (f *FileIO) ReadInput(td Dependency) {
 }
 
 func (f *FileIO) WriteOutput(td Dependency) {
-	output, err := os.Create(f.filename)
+	output, err := os.Create(f.Filename)
 
 	if err != nil {
 		log.Fatal("Cannot open the file to write it!!!")
